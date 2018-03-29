@@ -86,7 +86,17 @@ Module.register("MMM-Todoist", {
 				tasks.items.forEach(function(item) {
 					self.config.projects.forEach(function(project) {
 						if (item.project_id == project) {
-							items.push(item);
+							var oneDay = 24 * 60 * 60 * 1000;
+							var dueDateTime = new Date(item.due_date_utc);
+							var dueDate = new Date(dueDateTime.getFullYear(), dueDateTime.getMonth(), dueDateTime.getDate());
+							var now = new Date();
+							var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+							var diffDays = Math.floor((dueDate - today) / (oneDay));
+							console.log(diffDays);
+							if(diffDays >= 0)
+							{
+								items.push(item);
+							}
 						}
 					});
 				});
